@@ -1,14 +1,17 @@
 import { useForm } from "react-hook-form";
 import ErrorComponent from "./ErrorComponent";
+import type { DraftPatient } from "../types";
 
 export default function PatientForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<DraftPatient>();
 
-  const registerPatient = () => {};
+  const registerPatient = (data: DraftPatient) => {
+    console.log("🚀 ~ registerPatient ~ data:", data);
+  };
 
   return (
     <div className="md:w-1/2 lg:w-2/5 mx-5">
@@ -38,7 +41,7 @@ export default function PatientForm() {
             })}
           />
           {errors.name && (
-            <ErrorComponent>{errors.name?.message?.toString()}</ErrorComponent>
+            <ErrorComponent>{errors.name?.message}</ErrorComponent>
           )}
         </div>
 
@@ -56,7 +59,9 @@ export default function PatientForm() {
             })}
           />
           {errors.caretaker && (
-            <ErrorComponent>{errors.caretaker?.message?.toString()}</ErrorComponent>
+            <ErrorComponent>
+              {errors.caretaker?.message}
+            </ErrorComponent>
           )}
         </div>
 
@@ -73,13 +78,13 @@ export default function PatientForm() {
               required: "Email is required",
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'The email is not valid'
-              }
-            })} 
+                message: "The email is not valid",
+              },
+            })}
           />
           {errors.email && (
-            <ErrorComponent>{errors.email?.message?.toString()}</ErrorComponent>
-          )}  
+            <ErrorComponent>{errors.email?.message}</ErrorComponent>
+          )}
         </div>
 
         <div className="mb-5">
@@ -95,7 +100,7 @@ export default function PatientForm() {
             })}
           />
           {errors.date && (
-            <ErrorComponent>{errors.date?.message?.toString()}</ErrorComponent>
+            <ErrorComponent>{errors.date?.message}</ErrorComponent>
           )}
         </div>
 
@@ -112,7 +117,9 @@ export default function PatientForm() {
             })}
           />
           {errors.symptoms && (
-            <ErrorComponent>{errors.symptoms?.message?.toString()}</ErrorComponent>
+            <ErrorComponent>
+              {errors.symptoms?.message}
+            </ErrorComponent>
           )}
         </div>
 
