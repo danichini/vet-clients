@@ -3,6 +3,7 @@ import ErrorComponent from "./ErrorComponent";
 import type { DraftPatient } from "../types";
 import { usePatientStore } from "../store";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function PatientForm() {
   const { addPatient, activeId, patients, editPatient } = usePatientStore();
@@ -30,8 +31,12 @@ export default function PatientForm() {
   const registerPatient = (data: DraftPatient) => {
     if (activeId) {
       editPatient(data);
+      toast("Patient updated successfully", {
+        type: "success",
+      });
     } else {
       addPatient(data);
+      toast.success("Patient registered successfully");
     }
     reset();
   };
